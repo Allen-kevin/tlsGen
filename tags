@@ -1,0 +1,281 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+APP_TO_SERVER	client.h	37;"	d
+BASE_CONNS	client_config.h	14;"	d
+BUFF_SIZE	client.h	30;"	d
+CIPHER_H	DES/cipher.h	2;"	d
+CIPHER_SIZE	DES/payload_cipher.h	14;"	d
+CLIENT_CONFIG_H	client_config.h	2;"	d
+CLIENT_H	client.h	2;"	d
+DEBUG_GROUP	client.h	46;"	d
+DECRE	client_config.h	12;"	d
+DECRYPTION_MODE	DES/des.h	5;"	d
+DIR_DES	Makefile	/^DIR_DES = DES$/;"	m
+ENCRYPT	DES/cipher.h	19;"	d
+ENCRYPTION_MODE	DES/des.h	4;"	d
+EPOLL_H	epoll.h	2;"	d
+FALSE	epoll.h	15;"	d
+GROUPS	DES/payload_cipher.h	15;"	d
+GROUP_SIZE	epoll.h	12;"	d
+HEARTBEAT_PKT	payload.h	18;"	d
+INCRE	client_config.h	11;"	d
+INIT_SEED	DES/cipher.h	9;"	d
+IPLEN	protocol.h	4;"	d
+MAXCONNECTIONS	client.h	32;"	d
+MAXIPS	client.h	31;"	d
+MAXPORTS	client_config.h	9;"	d
+MAX_BURST	client.h	40;"	d
+MAX_CONN_PER_PORT	client.h	33;"	d
+MAX_EVENTS	epoll.h	10;"	d
+MTU	statistics.h	9;"	d
+PAUSETHRES	client.h	42;"	d
+PAUSETIME	client.h	43;"	d
+PAYLOAD_CIPHER_H	DES/payload_cipher.h	2;"	d
+PAYLOAD_H	payload.h	2;"	d
+PAYLOAD_OFFSET	payload.h	13;"	d
+PAYLOAD_SIZE	payload.h	11;"	d
+PAYLOAD_SIZE	statistics.h	8;"	d
+PROTOCOL_H	protocol.h	2;"	d
+RATE_ACCURACY	client.h	44;"	d
+REQUEST_PKT	payload.h	17;"	d
+RTT_MAX	statistics.h	10;"	d
+RTT_max	statistics.h	/^	uint32_t RTT_max;$/;"	m	struct:statistics
+RTT_sum	statistics.h	/^    uint64_t RTT_sum;$/;"	m	struct:statistics
+S1	DES/des.c	/^int S1[] = {14,  4, 13,  1,  2, 15, 11,  8,  3, 10,  6, 12,  5,  9,  0,  7,$/;"	v
+S2	DES/des.c	/^int S2[] = {15,  1,  8, 14,  6, 11,  3,  4,  9,  7,  2, 13, 12,  0,  5, 10,$/;"	v
+S3	DES/des.c	/^int S3[] = {10,  0,  9, 14,  6,  3, 15,  5,  1, 13, 12,  7, 11,  4,  2,  8,$/;"	v
+S4	DES/des.c	/^int S4[] = { 7, 13, 14,  3,  0,  6,  9, 10,  1,  2,  8,  5, 11, 12,  4, 15,$/;"	v
+S5	DES/des.c	/^int S5[] = { 2, 12,  4,  1,  7, 10, 11,  6,  8,  5,  3, 15, 13,  0, 14,  9,$/;"	v
+S6	DES/des.c	/^int S6[] = {12,  1, 10, 15,  9,  2,  6,  8,  0, 13,  3,  4, 14,  7,  5, 11,$/;"	v
+S7	DES/des.c	/^int S7[] = { 4, 11,  2, 14, 15,  0,  8, 13,  3, 12,  9,  7,  5, 10,  6,  1,$/;"	v
+S8	DES/des.c	/^int S8[] = {13,  2,  8,  4,  6, 15, 11,  1, 10,  9,  3, 14,  5,  0, 12,  7,$/;"	v
+SENDING	epoll.h	18;"	d
+SERIALIZE_H	serialize.h	2;"	d
+SERVER_TO_APP	client.h	38;"	d
+SERVER_TO_USER	client.h	36;"	d
+SID_end	client_config.h	/^	int		SID_end;$/;"	m	struct:epoll_configs
+SID_start	client_config.h	/^	int		SID_start;$/;"	m	struct:epoll_configs
+SOCKET_TOOLS_H	socket_tools.h	2;"	d
+STALL	epoll.h	17;"	d
+STATE_PKT	payload.h	16;"	d
+STATE_SIZE	payload.h	12;"	d
+STATISTICS_H	statistics.h	2;"	d
+S_TO_MS	client.h	45;"	d
+S_TO_US	client_config.h	13;"	d
+S_TO_US	epoll.h	11;"	d
+TABLE_SIZE	DES/cipher.h	10;"	d
+TEST_DATA	DES/cipher.h	17;"	d
+TEST_USERID	DES/cipher.h	12;"	d
+THREADNUM	client.h	39;"	d
+TPUT	client.h	27;"	d
+TRUE	epoll.h	14;"	d
+USER_TO_SERVER	client.h	35;"	d
+UTILS_H	utils.h	2;"	d
+ZERO_FILL_OFFSET	payload.h	14;"	d
+_DES_H_	DES/des.h	2;"	d
+_GNU_SOURCE	client.c	1;"	d	file:
+active_connections	epoll.h	/^	int active_connections;$/;"	m	struct:epoll_connections_stats
+addConnections	client.c	/^static int addConnections(const int conns) $/;"	f	file:
+addEpollEvent	epoll.c	/^void addEpollEvent(const int efd, const int fd, const int events)$/;"	f
+aliasIPs	client.h	/^	char	aliasIPs[MAXIPS][NI_MAXHOST];$/;"	m	struct:global_params
+bits2longlong	DES/cipher.c	/^int bits2longlong(long long* longOut, char* strIn, int strLen){$/;"	f
+burst	client_config.h	/^	int		burst;$/;"	m	struct:epoll_configs
+burst	protocol.h	/^	int		burst;$/;"	m	struct:client_init_configs
+burst	protocol.h	/^	int		burst;$/;"	m	struct:client_update_configs
+c	DES/des.h	/^	unsigned char c[4];$/;"	m	struct:__anon1
+cal_nonzero_bits	DES/cipher.c	/^int cal_nonzero_bits(int dataIn){$/;"	f
+canSendPkt	epoll.c	/^int canSendPkt(const int fd, const int epoch)$/;"	f
+cfg_file	client_config.c	/^char *cfg_file = "settings.cfg";$/;"	v
+client_init_configs	protocol.h	/^struct client_init_configs {$/;"	s
+client_ips	client.h	/^	int		client_ips;$/;"	m	struct:global_params
+client_update_configs	protocol.h	/^struct client_update_configs {$/;"	s
+clients	client.h	/^	struct	sockaddr_in clients[MAXIPS];$/;"	m	struct:global_params	typeref:struct:global_params::sockaddr_in
+closeAllConnections	epoll.c	/^void closeAllConnections()$/;"	f
+closeConnection	epoll.c	/^int closeConnection(const int efd, const int fd)$/;"	f
+closeConnections	epoll.c	/^void closeConnections(const int efd, const int num) $/;"	f
+close_conns	client.h	/^	int		close_conns[MAXPORTS];$/;"	m	struct:global_params
+conf	client_config.h	/^struct epoll_configs *conf;$/;"	v	typeref:struct:epoll_configs
+connectionClosed	epoll.h	/^	int connectionClosed;$/;"	m	struct:packet_time
+connections	client.h	/^	int		connections[MAXPORTS];$/;"	m	struct:global_params
+connections	client_config.h	/^	int		connections;$/;"	m	struct:epoll_configs
+connections	epoll.h	/^	int connections;$/;"	m	struct:epoll_connections_stats
+connections	protocol.h	/^	int		connections;$/;"	m	struct:client_init_configs
+connections	protocol.h	/^	int		connections;$/;"	m	struct:client_update_configs
+connections_counter	client.h	/^static unsigned int connections_counter;$/;"	v
+connsMap	epoll.h	/^	int connsMap[MAX_EVENTS];$/;"	m	struct:epoll_connections_stats
+controlSendingRate	epoll.c	/^int controlSendingRate(const int fd, const unsigned int prop)$/;"	f
+createClients	client.c	/^static void createClients()$/;"	f	file:
+createEpoll	epoll.c	/^int createEpoll()$/;"	f
+createEvents	client.c	/^static void createEvents(const int connections, struct sockaddr_in server, const int efd)$/;"	f	file:
+createServer	client.c	/^static void createServer()$/;"	f	file:
+d	DES/des.h	/^	unsigned char d[4];$/;"	m	struct:__anon1
+dead_connections	epoll.h	/^	int dead_connections;$/;"	m	struct:epoll_connections_stats
+decrypt	DES/payload_cipher.c	/^void decrypt(uint8_t *plain, long long key, uint8_t *cipher)$/;"	f
+decrypt_payload	DES/payload_cipher.c	/^void decrypt_payload(uint8_t *payload, uint8_t *userID, uint8_t *ciphertext)$/;"	f
+deleteConnections	client.c	/^static int deleteConnections(const int conns)$/;"	f	file:
+deleteEpollEvent	epoll.c	/^void deleteEpollEvent(const int efd, const int fd)$/;"	f
+des_key_init	DES/cipher.c	/^int des_key_init(char* keyTableBase, int keyTableSize, long long initSeed){$/;"	f
+deserialize_init_configs	serialize.c	/^unsigned char * deserialize_init_configs(unsigned char *buffer, struct client_init_configs *info) $/;"	f
+deserialize_payload	serialize.c	/^void deserialize_payload(unsigned char *buffer, struct packet_format *info)$/;"	f
+deserialize_u16	socket_tools.c	/^uint16_t deserialize_u16(unsigned char *buffer)$/;"	f
+deserialize_u32	socket_tools.c	/^uint32_t deserialize_u32(unsigned char *buffer)$/;"	f
+deserialize_u64	socket_tools.c	/^uint64_t deserialize_u64(unsigned char *buffer)$/;"	f
+deserialize_u8	socket_tools.c	/^uint8_t deserialize_u8(unsigned char *buffer)$/;"	f
+deserialize_update_configs	serialize.c	/^unsigned char * deserialize_update_configs(unsigned char *buffer, struct client_update_configs * info)$/;"	f
+dest_ip	client_config.h	/^	char	dest_ip[20];$/;"	m	struct:epoll_configs
+dev	client_config.h	/^	char	dev[10];$/;"	m	struct:epoll_configs
+direction	payload.h	/^	uint8_t		direction;$/;"	m	struct:packet_format
+dstDeviceID	payload.h	/^	uint32_t	dstDeviceID[4];$/;"	m	struct:packet_format
+efd	epoll.h	/^	int efd;$/;"	m	struct:packet_time
+efds	client.h	/^	int		efds[MAXPORTS];$/;"	m	struct:global_params
+encrypt	DES/payload_cipher.c	/^void encrypt(uint8_t *plain, long long key, uint8_t *ciphertext)$/;"	f
+encrypt_payload	DES/payload_cipher.c	/^void encrypt_payload(uint8_t *payload, uint8_t *userID, uint8_t *ciphertext)$/;"	f
+epoch	client_config.h	/^	int		epoch;$/;"	m	struct:epoll_configs
+epoch	protocol.h	/^	int		epoch;$/;"	m	struct:client_init_configs
+epoch	protocol.h	/^	int		epoch;$/;"	m	struct:client_update_configs
+epollLoop	client.c	/^static void epollLoop(const int efd, const int port)$/;"	f	file:
+epoll_client	client.c	/^void *epoll_client(void *context)$/;"	f
+epoll_configs	client_config.h	/^struct epoll_configs {$/;"	s
+epoll_connections_stats	epoll.h	/^struct epoll_connections_stats {$/;"	s
+epoll_conns_stats	epoll.h	/^struct epoll_connections_stats epoll_conns_stats;$/;"	v	typeref:struct:epoll_connections_stats
+epoll_thread	client.h	/^struct epoll_thread {$/;"	s
+failed_conns	client.h	/^	int		failed_conns[MAXPORTS];$/;"	m	struct:global_params
+family	payload.h	/^	uint64_t	family;$/;"	m	struct:packet_format
+final_message_permutation	DES/des.c	/^int final_message_permutation[] =  {40,  8, 48, 16, 56, 24, 64, 32,$/;"	v
+freeIDMap	payload.c	/^void freeIDMap()$/;"	f
+freePayload	payload.c	/^void freePayload(struct packet_format *payload)$/;"	f
+generate_key	DES/des.c	/^void generate_key(unsigned char* key) {$/;"	f
+generate_sub_keys	DES/des.c	/^void generate_sub_keys(unsigned char* main_key, key_set* key_sets) {$/;"	f
+getAliasIPs	client.c	/^static void getAliasIPs()$/;"	f	file:
+getConfigs	client_config.c	/^int getConfigs(struct epoll_configs *conf) $/;"	f
+getPktType	client.c	/^static int getPktType(const int upper_bound) $/;"	f	file:
+getPktTypeNum	client.c	/^static int getPktTypeNum(const int upper_bound)$/;"	f	file:
+getRTT	epoll.c	/^int getRTT(const int fd)$/;"	f
+getRandomCounter	statistics.c	/^int getRandomCounter()$/;"	f
+getTimeDiff	epoll.c	/^int getTimeDiff(const struct timeval *start, const struct timeval *end)$/;"	f
+get_key_from_userID	DES/cipher.c	/^int get_key_from_userID(char* userID,long long* key,char* keyTableBase){$/;"	f
+global_params	client.h	/^struct global_params {$/;"	s
+increReceivePkts	statistics.c	/^void increReceivePkts(const int RTT)$/;"	f
+increRequestPkts	statistics.c	/^void increRequestPkts()$/;"	f
+increSendPkts	statistics.c	/^void increSendPkts()$/;"	f
+init	client.c	/^static void init()$/;"	f	file:
+initConfigs	client_config.c	/^void initConfigs(struct epoll_configs *conf)$/;"	f
+initEpollConnectionStats	epoll.c	/^void initEpollConnectionStats()$/;"	f
+initEventTime	epoll.c	/^void initEventTime()$/;"	f
+initGlobal	client.c	/^static void initGlobal()$/;"	f	file:
+initIDMap	payload.c	/^void initIDMap(const int index_start, const int index_end)$/;"	f
+initKeyTable	DES/payload_cipher.c	/^void initKeyTable()$/;"	f
+initParams	client.c	/^static void initParams()$/;"	f	file:
+initPayload	payload.c	/^void initPayload(struct packet_format * payload)$/;"	f
+initial_key_permutaion	DES/des.c	/^int initial_key_permutaion[] = {57, 49,  41, 33,  25,  17,  9,$/;"	v
+initial_message_permutation	DES/des.c	/^int initial_message_permutation[] =	   {58, 50, 42, 34, 26, 18, 10, 2,$/;"	v
+interval	client_config.h	/^	int		interval;$/;"	m	struct:epoll_configs
+k	DES/des.h	/^	unsigned char k[8];$/;"	m	struct:__anon1
+keyTableBase	DES/payload_cipher.c	/^char * keyTableBase;$/;"	v
+key_set	DES/des.h	/^} key_set;$/;"	t	typeref:struct:__anon1
+key_shift_sizes	DES/des.c	/^int key_shift_sizes[] = {-1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};$/;"	v
+kill	client_config.h	/^	int		kill;$/;"	m	struct:epoll_configs
+last_recv	epoll.h	/^	struct timeval	last_recv;$/;"	m	struct:packet_time	typeref:struct:packet_time::timeval
+last_send	epoll.h	/^	struct timeval	last_send;$/;"	m	struct:packet_time	typeref:struct:packet_time::timeval
+longlong2bits	DES/cipher.c	/^int longlong2bits(long long* longIn, char* strOut, int strLen){$/;"	f
+longlong2char	DES/cipher.c	/^int longlong2char(long long longIn,char* strOut){$/;"	f
+main	client.c	/^int main(int argc, char *argv[])$/;"	f
+make_socket_nonblocking	socket_tools.c	/^int make_socket_nonblocking(const int sfd) $/;"	f
+map	payload.c	/^unsigned int *map;$/;"	v
+mask	client.h	/^	int		mask;$/;"	m	struct:epoll_thread
+max_prop	client_config.h	/^	int		max_prop;$/;"	m	struct:epoll_configs
+message_expansion	DES/des.c	/^int message_expansion[] =  {32,  1,  2,  3,  4,  5,$/;"	v
+modifyBurst	shell/modifyConfigs.sh	/^function modifyBurst()$/;"	f
+modifyConnections	shell/modifyConfigs.sh	/^function modifyConnections()$/;"	f
+modifyDevice	shell/modifyConfigs.sh	/^function modifyDevice()$/;"	f
+modifyEpoch	shell/modifyConfigs.sh	/^function modifyEpoch()$/;"	f
+modifyEpollEvent	epoll.c	/^void modifyEpollEvent(const int efd, const int fd, const int events)$/;"	f
+modifyKill	shell/modifyConfigs.sh	/^function modifyKill()$/;"	f
+modifyPort	shell/modifyConfigs.sh	/^function modifyPort()$/;"	f
+modifyRequestRate	shell/modifyConfigs.sh	/^function modifyRequestRate()$/;"	f
+modifySIDEnd	shell/modifyConfigs.sh	/^function modifySIDEnd()$/;"	f
+modifySIDStart	shell/modifyConfigs.sh	/^function modifySIDStart()$/;"	f
+modifyServerIP	shell/modifyConfigs.sh	/^function modifyServerIP()$/;"	f
+modifyUnitDelay	shell/modifyConfigs.sh	/^function modifyUnitDelay()$/;"	f
+myRandom	utils.c	/^int myRandom(const unsigned int x)$/;"	f
+nxt_Bits	DES/cipher.c	/^int nxt_Bits(char* oldBits, char* newBits){$/;"	f
+nxt_Value	DES/cipher.c	/^int nxt_Value(long long* old_l, long long* new_l){$/;"	f
+operation	payload.h	/^	uint32_t	operation[4];$/;"	m	struct:packet_format
+own_decrypt	DES/cipher.c	/^int own_decrypt(char* strIn, char* strOut, long long key){$/;"	f
+own_encrypt	DES/cipher.c	/^int own_encrypt(char* strIn, char* strOut, long long key){$/;"	f
+packet_format	payload.h	/^struct packet_format {$/;"	s
+packet_time	epoll.h	/^struct packet_time {$/;"	s
+packets_time	epoll.h	/^struct packet_time packets_time[MAX_EVENTS];$/;"	v	typeref:struct:packet_time
+params	client.h	/^static struct global_params *params;$/;"	v	typeref:struct:global_params
+pauseSignal	client.c	/^static void pauseSignal(int *counter, const int thres)$/;"	f	file:
+pktTypeCounter	client.h	/^static unsigned int pktTypeCounter;$/;"	v
+port	client.h	/^	int		port;$/;"	m	struct:epoll_thread
+ports	client_config.h	/^	int		ports[MAXPORTS];$/;"	m	struct:epoll_configs
+ports_count	client_config.h	/^	int		ports_count;$/;"	m	struct:epoll_configs
+print_char_as_binary	DES/des.c	/^void print_char_as_binary(char input) {$/;"	f
+print_key_set	DES/des.c	/^void print_key_set(key_set key_set){$/;"	f
+prio_prop	client_config.h	/^	int 	prio_prop;$/;"	m	struct:epoll_configs
+process_message	DES/des.c	/^void process_message(unsigned char* message_piece, unsigned char* processed_piece, key_set* key_sets, int mode) {$/;"	f
+random_counter	statistics.h	/^	uint32_t random_counter;$/;"	m	struct:statistics
+receive_counter_min	statistics.h	/^    uint32_t receive_counter_min;$/;"	m	struct:statistics
+receive_counter_sec	statistics.h	/^    uint32_t receive_counter_sec;$/;"	m	struct:statistics
+receive_flag	epoll.h	/^	int receive_flag;$/;"	m	struct:packet_time
+requestRate	client_config.h	/^	double	requestRate;$/;"	m	struct:epoll_configs
+requestRate	protocol.h	/^	int		requestRate;$/;"	m	struct:client_init_configs
+requestRate	protocol.h	/^	int		requestRate;$/;"	m	struct:client_update_configs
+request_counter_min	statistics.h	/^    uint32_t request_counter_min;$/;"	m	struct:statistics
+request_counter_sec	statistics.h	/^    uint32_t request_counter_sec;$/;"	m	struct:statistics
+reserve	payload.h	/^    uint16_t    reserve;$/;"	m	struct:packet_format
+resetMinStats	statistics.c	/^void resetMinStats()$/;"	f
+resetSecStats	statistics.c	/^void resetSecStats()$/;"	f
+resetSendPkt	epoll.c	/^void resetSendPkt(const int fd)$/;"	f
+restoreConnection	epoll.c	/^int restoreConnection(const int efd, const int fd)$/;"	f
+restoreConnections	epoll.c	/^int restoreConnections(const int efd, const int num, const int epoch, const int interval) $/;"	f
+right_sub_message_permutation	DES/des.c	/^int right_sub_message_permutation[] =    {16,  7, 20, 21,$/;"	v
+send_counter_min	statistics.h	/^    uint32_t send_counter_min;$/;"	m	struct:statistics
+send_counter_sec	statistics.h	/^    uint32_t send_counter_sec;$/;"	m	struct:statistics
+sendingFlag	epoll.h	/^	int sendingFlag;$/;"	m	struct:packet_time
+serialize_init_configs	serialize.c	/^unsigned char * serialize_init_configs(unsigned char *buffer,  struct client_init_configs *info)$/;"	f
+serialize_payload	serialize.c	/^unsigned char * serialize_payload(unsigned char *buffer, struct packet_format *info)$/;"	f
+serialize_u16	socket_tools.c	/^unsigned char * serialize_u16(unsigned char *buffer, uint16_t value)$/;"	f
+serialize_u32	socket_tools.c	/^unsigned char * serialize_u32(unsigned char *buffer, uint32_t value)$/;"	f
+serialize_u64	socket_tools.c	/^unsigned char * serialize_u64(unsigned char *buffer, uint64_t value)$/;"	f
+serialize_u8	socket_tools.c	/^unsigned char * serialize_u8(unsigned char *buffer, uint8_t value)$/;"	f
+serialize_update_configs	serialize.c	/^unsigned char * serialize_update_configs(unsigned char *buffer, struct client_update_configs *info)$/;"	f
+server	client.h	/^	struct	sockaddr_in server[MAXPORTS];$/;"	m	struct:global_params	typeref:struct:global_params::sockaddr_in
+server_ip	protocol.h	/^	char	server_ip[IPLEN];$/;"	m	struct:client_init_configs
+server_port	protocol.h	/^	int		server_port;$/;"	m	struct:client_init_configs
+setEventRecvTime	epoll.c	/^void setEventRecvTime(const int fd, const struct timeval *time)$/;"	f
+setEventSendTime	epoll.c	/^void setEventSendTime(const int fd, const struct timeval *time, const int interval)$/;"	f
+setEventTimeEfd	epoll.c	/^void setEventTimeEfd(const int efd, const int fd)$/;"	f
+setPayload	payload.c	/^void setPayload(struct packet_format *payload, const unsigned char pkt_type, const unsigned char direction, const unsigned int ID, const unsigned int prop)$/;"	f
+setVirtualEventTime	epoll.c	/^void setVirtualEventTime(const int fd, const int total, const struct timeval *time, const int epoch, const int interval, const float unit_delay)$/;"	f
+showMap	utils.c	/^void showMap(unsigned int *array, const int size)$/;"	f
+shuffer	utils.c	/^void shuffer(unsigned int *array, const int size)$/;"	f
+srcDeviceID	payload.h	/^    uint32_t    srcDeviceID[4];$/;"	m	struct:packet_format
+state	payload.h	/^	uint8_t		state[STATE_SIZE];$/;"	m	struct:packet_format
+statistics	statistics.h	/^struct statistics {$/;"	s
+stats	statistics.h	/^struct statistics stats;$/;"	v	typeref:struct:statistics
+str2Int	DES/cipher.c	/^int str2Int(char* strIn, int strLen)$/;"	f
+str2longlong	DES/cipher.c	/^int str2longlong(char* strIn, long long* longOut, int strLen){$/;"	f
+sub_key_permutation	DES/des.c	/^int sub_key_permutation[] =    {14, 17, 11, 24,  1,  5,$/;"	v
+throughput_min	statistics.c	/^void *throughput_min(void *context)$/;"	f
+throughput_sec	statistics.c	/^void *throughput_sec(void *context)$/;"	f
+throughput_sec	statistics.h	/^    uint64_t throughput_sec;$/;"	m	struct:statistics
+total	client.h	/^	int		total;$/;"	m	struct:epoll_thread
+type	payload.h	/^	uint8_t		type;$/;"	m	struct:packet_format
+type_affirm	payload.h	/^    uint8_t     type_affirm;$/;"	m	struct:packet_format
+unit_delay	client_config.h	/^	double  unit_delay;$/;"	m	struct:epoll_configs
+updateConnections	client.c	/^static int updateConnections(const int prior_conns, const int conns)$/;"	f	file:
+updateEpoch	client_config.c	/^int updateEpoch(struct epoll_configs *conf) $/;"	f
+updateEvents	client.c	/^void *updateEvents(void *context)$/;"	f
+update_cfg	client.c	/^void *update_cfg(void *context)$/;"	f
+userID	payload.h	/^	uint32_t	userID[3];$/;"	m	struct:packet_format
+validRequestRate	client_config.c	/^double validRequestRate(const double rate)$/;"	f
+vburst	protocol.h	/^	int		vburst;$/;"	m	struct:client_init_configs
+virtual_time	epoll.h	/^	struct timeval  virtual_time;$/;"	m	struct:packet_time	typeref:struct:packet_time::timeval
+zero	payload.h	/^    uint8_t     zero[ZERO_FILL_OFFSET];$/;"	m	struct:packet_format
