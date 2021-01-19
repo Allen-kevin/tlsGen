@@ -1,3 +1,5 @@
+#include "ssl.h"
+
 void tls_init()
 {
     SSL_library_init();

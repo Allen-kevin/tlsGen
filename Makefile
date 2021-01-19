@@ -7,12 +7,13 @@ OBJ += client.o \
 	  client_config.o \
 	  statistics.o \
 	  epoll.o \
-	  utils.o
+	  utils.o \
+	  ssl.o
 
 OBJ += $(DIR_DES)/cipher.o \
 	   $(DIR_DES)/payload_cipher.o
 
-LIB += -lpthread
+LIB += -lpthread -lssl -lcrypto
 LIB += -lconfig
 
 CFLAGS += -g
