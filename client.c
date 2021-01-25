@@ -190,54 +190,65 @@ static void createEvents(const int connections, struct sockaddr_in server, const
 
 	ips = params->client_ips;
 
-    average = total / ips;
-    if (average > MAX_CONN_PER_PORT) {
-        average = MAX_CONN_PER_PORT;
-        total = ips * average;
+		average = total / ips;
+		if (average > MAX_CONN_PER_PORT) {
+			average = MAX_CONN_PER_PORT;
+			total = ips * average;
 #ifdef DEBUG
-        printf("Run out of ports, reduce the number of connections to %d.\n", total);
+			printf("Run out of ports, reduce the number of connections to %d.\n", total);
 #endif
-    }
-    remainder = total % ips;
+		}
+		remainder = total % ips;
 
-    gettimeofday(&time, NULL);
-    gettimeofday(&start, NULL);
-    for (ip=0; ip<ips; ip++) {
-        client = &(params->clients[ip]);
-        for (connection=0; connection<average; connection++) {
-            if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-                perror ("socket error. \n");
-                exit(EXIT_FAILURE);
-            }
-            if ((bind(sockfd, (struct sockaddr*)client, sizeof(struct sockaddr_in))) < 0) {
-                perror ("bind error. \n");
-                continue;
-            }
-            make_socket_nonblocking(sockfd);
+		gettimeofday(&time, NULL);
+		gettimeofday(&start, NULL);
+		for (ip=0; ip<ips; ip++) {
+			client = &(params->clients[ip]);
+			for (connection=0; connection<average; connection++) {
+				if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+					perror ("socket error. \n");
+					exit(EXIT_FAILURE);
+				}
+				if ((bind(sockfd, (struct sockaddr*)client, sizeof(struct sockaddr_in))) < 0) {
+					perror ("bind error. \n");
+					continue;
+				}
+				make_socket_nonblocking(sockfd);
 #ifdef DEBUG
-            if (connection % DEBUG_GROUP == 0 ) {
-                printf("fd: %d, connection: %d, ip: %d, total: %d, avg: %d\n", sockfd, connection, ip, total, average);
-            }
+				if (connection % DEBUG_GROUP == 0 ) {
+					printf("fd: %d, connection: %d, ip: %d, total: %d, avg: %d\n", sockfd, connection, ip, total, average);
+				}
 #endif
-            if (connect(sockfd, (struct sockaddr *)&server, sizeof(server)) < 0) {
-                if (errno != EINPROGRESS) {
-                    close(sockfd);
-                    perror ("connect error.\n");
-                    continue;
-                }
-            }
-            setEventTimeEfd(efd, sockfd);
-            pauseSignal(&connections_counter, PAUSETHRES);
-            // set virtual event send time and recv time
-            setVirtualEventTime(sockfd, total, &time, conf->epoch, conf->interval, conf->unit_delay);
-        }
-    }
+				if (connect(sockfd, (struct sockaddr *)&server, sizeof(server)) < 0) {
+					if (errno != EINPROGRESS) {
+						close(sockfd);
+						perror ("connect error.\n");
+						continue;
+					}
+				}
+				setEventTimeEfd(efd, sockfd);
+				pauseSignal(&connections_counter, PAUSETHRES);
+				// set virtual event send time and recv time
+				setVirtualEventTime(sockfd, total, &time, conf->epoch, conf->interval, conf->unit_delay);
+			}
+		}
 	gettimeofday(&end, NULL);
 //#ifdef DEBUG
 	fprintf(stderr, "time: %d\n", getTimeDiff(&start, &end));
 //#endif
 }
 
+/* Added by wanwenkai*/
+static int create_http_requests(char *buffer, int len)
+{
+    memset(buffer, 0, len);
+    strcat(buffer, "GET /index.html HTTP/1.1\r\n");
+    strcat(buffer, "Host: 10.10.32.120:80\r\n");
+    strcat(buffer, "\r\n");
+
+    return strlen(buffer);
+}
+/* end */
 
 static void epollLoop(const int efd, const int port)
 {
@@ -288,10 +299,14 @@ static void epollLoop(const int efd, const int port)
 					continue;
 				}
 				struct packet_format payload;
+                int len;
 				unsigned char payload_buf[PAYLOAD_SIZE], *pbuf;
 				type = getPktType(upper_bound);
 				initPayload(&payload);
 				setPayload(&payload, type, USER_TO_SERVER, fd, conf->prio_prop);
+                len = create_http_requests(payload_buf, PAYLOAD_SIZE);
+				count = write(fd, payload_buf, len);
+#if 0
 				pbuf = serialize_payload(payload_buf, &payload);
 #ifdef CIPHER
                 unsigned char payload_cipher[PAYLOAD_SIZE];
@@ -300,6 +315,7 @@ static void epollLoop(const int efd, const int port)
 				count = write(fd, payload_cipher, pbuf - payload_buf);
 #else
 				count = write(fd, payload_buf, pbuf - payload_buf);
+#endif
 #endif
 				if (count == -1) {
 					if (errno != EINTR && errno != EWOULDBLOCK && errno != EAGAIN) {
