@@ -1,9 +1,12 @@
 #ifndef SOCKET_TOOLS_H
 #define SOCKET_TOOLS_H
 
+#include <stdlib.h>
+#include <stdio.h>
 #include <stdint.h>
 #include <fcntl.h>
 #include <error.h>
+#include <unistd.h>
 
 
 unsigned char * serialize_u64(unsigned char *buffer, uint64_t value);

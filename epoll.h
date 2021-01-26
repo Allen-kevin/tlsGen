@@ -5,6 +5,10 @@
 #include <time.h>
 #include <sys/epoll.h>
 #include <assert.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <sys/time.h>
+#include <unistd.h>
 #include "utils.h"
 
 #define MAX_EVENTS		3500000
@@ -25,6 +29,7 @@ struct packet_time {
 	int sendingFlag;
 	int connectionClosed;
 	int receive_flag;
+    SSL *ssl;
 };
 
 // this struct is for dynamic addition and deletion of connections
@@ -35,6 +40,7 @@ struct epoll_connections_stats {
 	int connsMap[MAX_EVENTS];
 };
 
+void initEventTime();
 int createEpoll();
 void addEpollEvent(const int efd, const int fd, const int events);
 void modifyEpollEvent(const int efd, const int fd, const int events);

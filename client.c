@@ -33,7 +33,7 @@ static int addConnections(const int conns)
 #ifdef DEBUG
 		printf("add %d connections, left %d connections\n", conns_per_port, restore_left);
 #endif
-		createEvents(restore_left, params->server[port], params->efds[port]);
+		createEvents(restore_left, params->server[port], params->efds[port], params->ctxs[port]);
 		params->connections[port] += conns_per_port;
 	}
 	return 0;
@@ -176,7 +176,45 @@ static void pauseSignal(int *counter, const int thres)
 }
 
 
-static void createEvents(const int connections, struct sockaddr_in server, const int efd)
+static void initTLS()
+{
+    SSL_library_init();
+    OpenSSL_add_all_algorithms();
+    SSL_load_error_strings();
+}
+
+static int ssl_connect(int fd, SSL_CTX *ctx)
+{
+    int err;
+	packets_time[fd].ssl = SSL_new(ctx);
+    SSL *ssl = packets_time[fd].ssl;
+//    CHK_NULL(ssl);
+    SSL_set_fd(ssl, fd);
+    SSL_set_connect_state(ssl);
+
+    for (;;) {
+        int success = SSL_connect(ssl);
+
+        if (success < 0) {
+            err = SSL_get_error(ssl, success);
+            if (err == SSL_ERROR_WANT_READ ||
+                err == SSL_ERROR_WANT_WRITE) {
+
+                continue;    
+            } else {
+                free(packets_time[fd].ssl);
+                return -1;
+            }          
+        } else {
+            printf("tls success!\n");
+            break;
+        }
+    }
+
+    return 0;
+}
+
+static void createEvents(const int connections, struct sockaddr_in server, const int efd, SSL_CTX *ctx)
 {
 	int sockfd;
 	struct epoll_event event;
@@ -190,48 +228,53 @@ static void createEvents(const int connections, struct sockaddr_in server, const
 
 	ips = params->client_ips;
 
-		average = total / ips;
-		if (average > MAX_CONN_PER_PORT) {
-			average = MAX_CONN_PER_PORT;
-			total = ips * average;
+    average = total / ips;
+    if (average > MAX_CONN_PER_PORT) {
+        average = MAX_CONN_PER_PORT;
+        total = ips * average;
 #ifdef DEBUG
-			printf("Run out of ports, reduce the number of connections to %d.\n", total);
+        printf("Run out of ports, reduce the number of connections to %d.\n", total);
 #endif
-		}
-		remainder = total % ips;
+    }
+    remainder = total % ips;
 
-		gettimeofday(&time, NULL);
-		gettimeofday(&start, NULL);
-		for (ip=0; ip<ips; ip++) {
-			client = &(params->clients[ip]);
-			for (connection=0; connection<average; connection++) {
-				if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-					perror ("socket error. \n");
-					exit(EXIT_FAILURE);
-				}
-				if ((bind(sockfd, (struct sockaddr*)client, sizeof(struct sockaddr_in))) < 0) {
-					perror ("bind error. \n");
-					continue;
-				}
-				make_socket_nonblocking(sockfd);
+    gettimeofday(&time, NULL);
+    gettimeofday(&start, NULL);
+    for (ip=0; ip<ips; ip++) {
+        client = &(params->clients[ip]);
+        for (connection=0; connection<average; connection++) {
+            if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+                perror ("socket error. \n");
+                exit(EXIT_FAILURE);
+            }
+            if ((bind(sockfd, (struct sockaddr*)client, sizeof(struct sockaddr_in))) < 0) {
+                perror ("bind error. \n");
+                continue;
+            }
+            make_socket_nonblocking(sockfd);
 #ifdef DEBUG
-				if (connection % DEBUG_GROUP == 0 ) {
-					printf("fd: %d, connection: %d, ip: %d, total: %d, avg: %d\n", sockfd, connection, ip, total, average);
-				}
+            if (connection % DEBUG_GROUP == 0 ) {
+                printf("fd: %d, connection: %d, ip: %d, total: %d, avg: %d\n", sockfd, connection, ip, total, average);
+            }
 #endif
-				if (connect(sockfd, (struct sockaddr *)&server, sizeof(server)) < 0) {
-					if (errno != EINPROGRESS) {
-						close(sockfd);
-						perror ("connect error.\n");
-						continue;
-					}
-				}
-				setEventTimeEfd(efd, sockfd);
-				pauseSignal(&connections_counter, PAUSETHRES);
-				// set virtual event send time and recv time
-				setVirtualEventTime(sockfd, total, &time, conf->epoch, conf->interval, conf->unit_delay);
-			}
-		}
+            if (connect(sockfd, (struct sockaddr *)&server, sizeof(server)) < 0) {
+                if (errno != EINPROGRESS) {
+                    close(sockfd);
+                    perror ("connect error.\n");
+                    continue;
+                }
+            }
+            if (ssl_connect(sockfd, ctx) < 0) {
+                close(sockfd);
+                perror("ssl connect error.\n");
+                continue;
+            }
+            setEventTimeEfd(efd, sockfd);
+            pauseSignal(&connections_counter, PAUSETHRES);
+            // set virtual event send time and recv time
+            setVirtualEventTime(sockfd, total, &time, conf->epoch, conf->interval, conf->unit_delay);
+        }
+    }
 	gettimeofday(&end, NULL);
 //#ifdef DEBUG
 	fprintf(stderr, "time: %d\n", getTimeDiff(&start, &end));
@@ -249,6 +292,23 @@ static int create_http_requests(char *buffer, int len)
     return strlen(buffer);
 }
 /* end */
+
+
+static int ssl_write(SSL *ssl, char *payload_buf, int len)
+{
+    len = SSL_write(ssl, payload_buf, len);
+    if (len < 0) {
+        perror("ssl write error!\n");
+    }
+    
+    return len;
+}
+
+
+static int ssl_read(SSL *ssl, char *buf)
+{
+    SSL_read(ssl, buf, BUFF_SIZE);
+}
 
 static void epollLoop(const int efd, const int port)
 {
@@ -305,7 +365,8 @@ static void epollLoop(const int efd, const int port)
 				initPayload(&payload);
 				setPayload(&payload, type, USER_TO_SERVER, fd, conf->prio_prop);
                 len = create_http_requests(payload_buf, PAYLOAD_SIZE);
-				count = write(fd, payload_buf, len);
+                count = ssl_write(packets_time[fd].ssl, payload_buf, len);
+//				count = write(fd, payload_buf, len);
 #if 0
 				pbuf = serialize_payload(payload_buf, &payload);
 #ifdef CIPHER
@@ -341,7 +402,8 @@ static void epollLoop(const int efd, const int port)
 				}
 			} else if (events[i].events & EPOLLIN) {
 				fd = events[i].data.fd;
-				count = read(fd, buf, BUFF_SIZE);
+                count = ssl_read(packets_time[fd].ssl, buf);
+//				count = read(fd, buf, BUFF_SIZE);
 				if (count == -1) {
 					if (errno != EAGAIN && errno != EWOULDBLOCK && errno != EINTR) {
 						perror("read error");
@@ -367,6 +429,11 @@ static void epollLoop(const int efd, const int port)
 	free(events);
 }
 
+static SSL_CTX *createCtx()
+{
+	return SSL_CTX_new(SSLv23_client_method());
+}
+
 void *epoll_client(void *context)
 {
 	struct epoll_thread *param;
@@ -376,14 +443,16 @@ void *epoll_client(void *context)
 	int efd, error;
 	int sockfd = -1;
 	int conn_id;
+    SSL_CTX *ctx;
 	
 	total = param->total;
 	port = param->port;
-	
+    ctx = createCtx();
 	efd = createEpoll();
 	params->efds[port] = efd;
+	params->ctxs[port] = ctx;
 	params->connections[port] = total;
-	createEvents(total, params->server[port], efd);
+	createEvents(total, params->server[port], efd, ctx);
 	epollLoop(efd, port);
 
 	return 0;
@@ -419,6 +488,7 @@ static void init()
 	initEventTime();
 	initIDMap(conf->SID_start, conf->SID_end);
 	initKeyTable();
+    initTLS();
 	createClients();
 	createServer();
 }

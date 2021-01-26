@@ -32,6 +32,7 @@ struct packet_format {
 };
 
 
+void initIDMap(const int index_start, const int index_end);
 void initPayload(struct packet_format * payload);
 void freePayload(struct packet_format * payload);
 void setPayload(struct packet_format *payload, const unsigned char pkt_type, const unsigned char direction, const unsigned int ID, const unsigned int prop);

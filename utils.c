@@ -1,3 +1,4 @@
+#include <time.h>
 #include "utils.h"
 
 int myRandom(const unsigned int x)

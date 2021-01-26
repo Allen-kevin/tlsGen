@@ -12,9 +12,12 @@
 #include <ifaddrs.h>
 #include <assert.h>
 #include <unistd.h>
-#include <time.h>
 #include <errno.h>
+#include <time.h>
 #include <sched.h>
+#include <arpa/inet.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 
 #include "payload.h"
 #include "serialize.h"
@@ -55,6 +58,7 @@ struct epoll_thread {
 
 struct global_params {
 	int		efds[MAXPORTS];
+	SSL_CTX	*ctxs[MAXPORTS];
 	int		connections[MAXPORTS];
 	int		close_conns[MAXPORTS];
 	int		failed_conns[MAXPORTS];
@@ -69,6 +73,6 @@ static unsigned int connections_counter;
 static unsigned int pktTypeCounter;
 static struct global_params *params;
 
-static void createEvents(const int connections, struct sockaddr_in server, const int efd);
+static void createEvents(const int connections, struct sockaddr_in server, const int efd, SSL_CTX *ctx);
 
 #endif
