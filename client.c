@@ -206,7 +206,6 @@ static int ssl_connect(int fd, SSL_CTX *ctx)
                 return -1;
             }          
         } else {
-            printf("tls success!\n");
             break;
         }
     }
